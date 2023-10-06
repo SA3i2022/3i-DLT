@@ -20,10 +20,10 @@ def make_training_data(input_image, input_mask, save_image, save_mask, patch_siz
                     line=input_mask.split('/')[-1]
                     index = line.find('.npy')
                     output_line = line[:index] + '_' +str(i)+'_'+str(q)+'_'+str(r)+line[index:]
-                    np.save(str(save_image)+str(output_line), sets)
+                    np.save(str(save_mask)+str(output_line), sets)
                     
                     sets2=patcha[i,q,r,0:a,0:b,0:c]
                     line2=input_image.split('/')[-1]
                     index2=line2.find('.npy')
                     output_line2=line2[:index2] + '_' +str(i)+'_'+str(q)+'_'+str(r)+line2[index2:]
-                    np.save(str(save_mask)+str(output_line2), sets2)
+                    np.save(str(save_image)+str(output_line2), sets2)
