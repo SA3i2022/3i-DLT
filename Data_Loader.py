@@ -1,13 +1,13 @@
-#taken from https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly and modified to load 3D image and mask pairs stored in npy
-import keras
 
-class DataGenerator(keras.utils.Sequence):
+class DataGenerator():
     'Generates data for Keras'
-    def __init__(self, image_IDs, masks_IDs, batch_size=3, dim=(128,128,64), n_channels=1
+    def __init__(self, root_dir_image, root_dir_mask, image_IDs, masks_IDs, batch_size=3, dim=(128,128,64), n_channels=1
                  , shuffle=False):
         'Initialization'
         self.dim = dim
         self.batch_size = batch_size
+        self.root_dir_image=root_dir_image
+        self.root_dir_mask=root_dir_mask
         self.masks_IDs = masks_IDs
         self.image_IDs = image_IDs
         self.n_channels = n_channels
@@ -19,6 +19,8 @@ class DataGenerator(keras.utils.Sequence):
         return int(np.floor(len(self.image_IDs) / self.batch_size))
 
     def __getitem__(self, index):
+        root_dir_image=self.root_dir_image
+        root_dir_mask=self.root_dir_mask
         'Generate one batch of data'
         # Generate indexes of the batch
         indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
@@ -47,9 +49,9 @@ class DataGenerator(keras.utils.Sequence):
         # Generate data
         for i in range(0,len(image_IDs_temp)):
             # Store image
-            X[i] = np.expand_dims(np.load('E:/S3i/Assembled/Image_Patch/' +str(image_IDs_temp[i])),-1)
+            X[i] = np.expand_dims(np.load(str(self.root_dir_image)  +str(image_IDs_temp[i])),-1)
 
             # Store mask
-            y[i] = np.expand_dims(np.load('E:/S3i/Assembled/Mask_Patch/' +str(mask_IDs_temp[i])),-1)
+            y[i] = np.expand_dims(np.load(str(self.root_dir_mask) +str(mask_IDs_temp[i])),-1)
 
         return X, y
