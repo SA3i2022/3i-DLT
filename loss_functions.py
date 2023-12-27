@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def dice_loss(y_true, y_pred):
     smooth = 1e-5  # Smoothing factor to prevent division by zero
     y_true = tf.cast(y_true, dtype=y_pred.dtype)
