@@ -1,3 +1,5 @@
+import numpy as np
+
 def data_generator(original_dir, mask_dir):
     original_files = original_dir
     mask_files = mask_dir
