@@ -1,3 +1,5 @@
+import numpy as np
+
 def cubify(arr, newshape):
     oldshape= np.array(arr.shape)
     repeats= (oldshape / newshape).astype(int)
