@@ -12,7 +12,11 @@ import tensorflow as tf
 import scipy.io as sio
 import mat73
 
+#put in one image array that is dimensions [z,y,x]
 def star_slice(image_t):
+    label_spacez=[]
+    label_spacey=[]
+    label_spacex=[]
     model = StarDist2D.from_pretrained('2D_versatile_fluo')       
     for q in range (0,z):
         imgnewz=image_t[q,:,:]
@@ -31,6 +35,9 @@ def star_slice(image_t):
     label_arrayx=np.dstack(label_spacex)
     return(label_arrayz, label_arrayy, label_arrayx)
 
+#put the output of star slice as the arguements inside this function
+#z,y,x=star_slice(image_you_are_working_with)
+#clean_z,clean_y,clean_z=Refine(number to dialate by, z,y,x)
 def Refine(iteration_number, array_z, array_y, array_x):
     ref_spacez=[]
     ref_spacey=[]
@@ -100,10 +107,16 @@ def Refine(iteration_number, array_z, array_y, array_x):
     ref_spacex=np.dstack(ref_spacex)
     return(ref_spacez3, ref_spacey2, ref_spacex)
 
+#put the output of Refine in here
+#final_image=Put_Together(clean_z,clean_y,clean_z)
 def Put_Together(array1,array2,array3):
     neat=refz*refy
     neat2=refz*refx
     neat3=neat+neat2
     return neat3
 
-
+#Example
+#z,y,x=star_slice(image_you_are_working_with)
+#clean_z,clean_y,clean_z=Refine(number to dialate by, z,y,x)
+#I would start with 3 and wiggle up or down depending
+#final_image=Put_Together(clean_z,clean_y,clean_z)
