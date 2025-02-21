@@ -5,10 +5,9 @@ from predict import *
 import tensorflow as tf
 from tifffile import imread 
 import matplotlib.pyplot as plt
-import socket
-import ByteUtil
 import SBAccess
 import SBSupport
+import patchify
 
 input_shape=(608,608,1)
 num_classes=1
