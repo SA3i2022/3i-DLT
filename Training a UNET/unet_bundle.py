@@ -5,7 +5,7 @@
 
 
 from Data_Loader import *
-from Data_Loader_Album import *
+from data_loader_volumentations import *
 
 # In[2]:
 
@@ -35,10 +35,10 @@ import tensorflow.keras as keras
 # In[5]:
 
 
-dataset = tf.data.Dataset.from_generator(lambda: data_generator_2D_aug(train_image, train_mask),output_signature=(tf.TensorSpec(shape=(576,576,1), dtype=tf.float32),
+dataset = tf.data.Dataset.from_generator(lambda: data_generator_aug(train_image, train_mask),output_signature=(tf.TensorSpec(shape=(32,32,32,1), dtype=tf.float32),
                       tf.TensorSpec(shape=(576,576,1), dtype=tf.float32)))
 
-dataset_validation = tf.data.Dataset.from_generator(lambda: data_generator(image_valid, mask_valid),output_signature=(tf.TensorSpec(shape=(576,576,1), dtype=tf.float32),
+dataset_validation = tf.data.Dataset.from_generator(lambda: data_generator(image_valid, mask_valid),output_signature=(tf.TensorSpec(shape=(32,32,32,1), dtype=tf.float32),
                       tf.TensorSpec(shape=(576,576,1), dtype=tf.float32)))
 
 
@@ -51,9 +51,9 @@ from unet2D import *
 # In[ ]:
 
 
-input_shape=(576,576,1)
+input_shape=(32,32,32,1)
 num_classes=1
-model=create_2d_unet(input_shape,num_classes)
+model=create_3d_unet(input_shape,num_classes)
 #model.load_weights('/projects/salbersfester@xsede.org/Alpine Scripts/weights-improvement-dlover-13-0.95.hdf5')
 
 # In[7]:
