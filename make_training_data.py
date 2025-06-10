@@ -3,7 +3,7 @@ import patchify
 import os
 
 
-def make_training_data(input_image, input_mask, save_image, save_mask, patch_size, step_size):
+def make_training_data_3D(input_image, input_mask, save_image, save_mask, patch_size, step_size):
     image=np.load(input_image)
     mask=np.load(input_mask)
     a,b,c=patch_size
