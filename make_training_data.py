@@ -1,5 +1,7 @@
 import numpy as np
 import patchify
+import os
+
 
 def make_training_data(input_image, input_mask, save_image, save_mask, patch_size, step_size):
     image=np.load(input_image)
@@ -27,3 +29,24 @@ def make_training_data(input_image, input_mask, save_image, save_mask, patch_siz
                     index2=line2.find('.npy')
                     output_line2=line2[:index2] + '_' +str(i)+'_'+str(q)+'_'+str(r)+line2[index2:]
                     np.save(str(save_image)+str(output_line2), sets2)
+
+
+
+def mask_region_check(directory):
+    tell=[]
+    for i in os.listdir(directory):
+        mask=np.load(directory+ "/"  + str(i))
+        comp=np.unique(mask,return_counts=True)
+        s=comp[1]
+        tell.append(s[1]/(s[1]+s[0]))
+    return tell
+
+
+def pixels_masked(directory):
+    tell=[]
+    for i in os.listdir(directory):
+        mask=np.load(directory+ "/"  + str(i))
+        comp=np.unique(mask,return_counts=True)
+        s=comp[1]
+        tell.append(s[1])
+    return tell
